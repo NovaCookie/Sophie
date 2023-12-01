@@ -12,6 +12,7 @@ fetch('http://localhost:5678/api/works', {
 )
 //Appelle des images et conserve uniquement les images avec la gateg demandé puis pour chaque images appelle addElement
 async function lesFiltres(filtre) {
+delElement();
   await fetch('http://localhost:5678/api/works')
     .then(dataFetch => dataFetch.json()
       .then(dataList => dataList.filter(image => image.category.name == filtre).map(image => addElement(image.imageUrl, image.title))
@@ -34,5 +35,13 @@ function addElement(url, name) {
 
 }
 
+//Suppression de toutes les enfants de la balise contenant toutes les images
+function delElement() {
+
+  var parent = document.getElementById('gallery_id');
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild)
+  }
+}
 
 
