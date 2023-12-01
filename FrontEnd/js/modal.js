@@ -32,3 +32,10 @@ fermer1.onclick = function () {
 fermer2.onclick = function () {
     modal2.style.display = "none";
 }
+
+//ferme la modal en cliquant en dehors de celle-ci
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
