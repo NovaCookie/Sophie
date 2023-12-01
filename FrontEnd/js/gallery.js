@@ -10,6 +10,14 @@ fetch('http://localhost:5678/api/works', {
   })
 )
 )
+//Appelle des images et conserve uniquement les images avec la gateg demandé puis pour chaque images appelle addElement
+async function lesFiltres(filtre) {
+  await fetch('http://localhost:5678/api/works')
+    .then(dataFetch => dataFetch.json()
+      .then(dataList => dataList.filter(image => image.category.name == filtre).map(image => addElement(image.imageUrl, image.title))
+      ))
+}
+
 //Création dynamique de balise et insère les images dedans
 function addElement(url, name) {
 
