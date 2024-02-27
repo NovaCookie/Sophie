@@ -362,6 +362,10 @@ footer nav ul {
 	text-decoration: none;
 	color: black;
 }
+.Page-login:hover {
+	color: #B1663C;
+}
+
 
 #login h2 {
 	margin-bottom: 20px;
