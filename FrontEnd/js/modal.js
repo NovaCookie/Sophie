@@ -2,21 +2,26 @@ const modal = document.getElementById("myModal_del");
 const openModal = document.getElementById("openModal");
 const modal2 = document.getElementById("myModal_add");
 const btnAdd = document.getElementById("btnAdd");
-const arrow = document.getElementById("arrow_left")
+const retour = document.getElementById("arrow_left")
 const fermer1 = document.getElementById("closeOne");
 const fermer2 = document.getElementById("closeTwo");
 const modal_gallery = document.getElementById("modal-gallery");
-const divAff = document.getElementById("div-img-aff")
 const img = document.getElementById("img-aff");
-const titre = document.getElementById("Titre")
-const categ = document.getElementById("Catégorie")
+const titre = document.getElementById("Titre");
+const categ = document.getElementById("Catégorie");
+const fileTransfert = document.getElementById("FileTransfert");
+const labelFile = document.getElementById("labelFile");
+const image = document.getElementById("previewImage");
+const btnAddImg = document.getElementById("modal-add-input");
+const mess = document.getElementById("msg-err-modal")
+
 
 const url = "http://localhost:5678/"
 
 fetch(url + 'api/works')
     .then(r => r.json().then(data =>
         data.map(image => {
-            addElementmodal(image.imageUrl, image.id);
+            openModal.addEventListener("click", addElementmodal(image.imageUrl, image.id));
         })
     )
     )
@@ -30,7 +35,7 @@ function addElementmodal(url, id) {
     const iModal = document.createElement("i");
     iModal.className = "fa-solid fa-trash-can";
     iModal.id = id
-    iModal.addEventListener("click", e => { delImage(e) })
+    iModal.addEventListener("click", e => { delImage(e); e.defaultPrevented() })
     var imgModal = document.createElement("img");
     imgModal.src = url;
 
@@ -48,48 +53,55 @@ openModal.onclick = function () {
 btnAdd.onclick = function () {
     modal.style.display = "none";
     modal2.style.display = "block";
+    labelFile.style.visibility = "visible"
+    image.setAttribute("src", "")
 
-    divAff.style.opacity = "0";
-    divAff.style.zIndex = "-1";
-    document.getElementById("img-aff").src = ""
 }
 
-arrow.onclick = function () {
+retour.onclick = function () {
     modal.style.display = "block";
     modal2.style.display = "none";
+    image.removeAttribute('src')
+    image.style.display = "none"    
 }
 
 fermer1.onclick = function () {
     modal.style.display = "none";
+    
 }
 
 fermer2.onclick = function () {
     modal2.style.display = "none";
+    
 }
 
 //ferme la modal en cliquant en dehors de celle-ci
 window.onclick = function (event) {
-    if (event.target == modal) {
+    if (event.target == modal || event.target == modal2) {
         modal.style.display = "none";
+        modal2.style.display = "none";
     }
 }
-//Affiche l'image sélectionner dans les fichiers
-function changeImg() {
-    const imgSelected = document.getElementById("FileTransfert").files[0];
-    img.classList.add("obj");
-    img.file = imgSelected;
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        img.src = e.target.result;
-    };
-    reader.readAsDataURL(imgSelected);
-    var divAff = document.getElementById("div-img-aff")
-    divAff.style.opacity = "1";
-    divAff.style.zIndex = "1";
+//Affiche l'image sélectionner
+fileTransfert.addEventListener("change", PreviewImage);
+function PreviewImage(e) {
+    e.preventDefault()
+    const input = e.target;
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            image.src = e.target.result
+        }
+        reader.readAsDataURL(input.files[0])
+        image.style.display = "flex"
+        labelFile.style.visibility = "hidden"
+
+    }
 }
 
 async function delImage(e) {
+    e.preventDefault();
     var id = e.currentTarget.getAttribute("id")
     const jeton_modal = window.sessionStorage.getItem('token');
     if (jeton_modal) {
@@ -100,31 +112,34 @@ async function delImage(e) {
                 "Authorization": 'Basic ' + jeton_modal,
             },
         });
-        delElement();
+        f();
     }
+    
 }
 
 function delElement(e) {
+    e.preventDefault()
     var parent = modal_gallery
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild)
-
     }
 }
 
-async function sendImg() {
-    const fileTrans = document.getElementById("FileTransfert").files[0];
+btnAddImg.addEventListener("click", async function sendImg(e) {
+    e.preventDefault();
     var titre_send = titre.value
     var categ_send = categ.value
-    if (fileTrans === undefined || titre_send.length == 0) {
-        var mess = document.getElementById("msg-err-modal")
+
+
+    if (fileTransfert.files[0] === undefined || titre_send.length == 0) {
         mess.style.display = "flex"
     }
     else {
-        var formData = new FormData();
-        formData.append("image", fileTrans);
-        formData.append("title", titre_send);
-        formData.append("category", categ_send);
+        const body = new FormData();
+        body.set("image", fileTransfert.files[0]);
+        body.set("title", titre_send);
+        body.set("category", categ_send);
+        console.log(body)
         const jeton_modal = window.sessionStorage.getItem('token');
         url_local = "http://localhost:5500/"
         await fetch(url + "api/works/", {
@@ -132,7 +147,8 @@ async function sendImg() {
             headers: {
                 "Authorization": 'Basic ' + jeton_modal,
             },
-            body: formData,
+            body,
+
         })
     }
-}
+})

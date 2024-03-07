@@ -27,7 +27,7 @@
 			<ul>
 				<li><a href="index.html" class="nav-bar">projets</a></li>
 				<li><a href="#contact" class="nav-bar">contact</a></li>
-				<li><a href="login.html" class="Page-login" onclick="logout()">login</a></li>
+				<li><a href="login.html" class="Page-login">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -51,22 +51,21 @@
 		<section id="portfolio">
 			<div id="title">
 				<h2 id="projet">Mes Projets</h2>
-				<span id="openModal" class="edition-boutton" onclick="addElementModal()">
+				<span id="openModal" class="edition-boutton">
 					<i class="fa-regular fa-pen-to-square"></i>modifier
 				</span>
 			</div>
 			<div class="filtre">
-				<div id="0" class="filtre-btn"
-					onclick="lesFiltres('Objets'), lesFiltres('Appartements'), lesFiltres('Hotels & restaurants')">
+				<div id="0" class="isSelected">
 					<p>Tous</p>
 				</div>
-				<div id="1" class="filtre-btn" onclick="lesFiltres('Objets')">
+				<div id="1" class="">
 					<p>Objet</p>
 				</div>
-				<div id="2" class="filtre-btn" onclick="lesFiltres('Appartements')">
+				<div id="2" class="">
 					<p>Appartements</p>
 				</div>
-				<div id="3" class="filtre-btn" onclick="lesFiltres('Hotels & restaurants')">
+				<div id="3" class="">
 					<p>Hotels & restaurants</p>
 				</div>
 			</div>
@@ -112,16 +111,15 @@
 			<span id="closeTwo" class="close">×</span>
 			<span id="arrow_left" class="arrow">←</span>
 			<h2>Ajout de photos</h2>
-			<form class="form-add-img" id="formModal" onsubmit="return false">
+			<form class="form-add-img" id="formModal">
 				<div class="modal-add-cadre-img">
-					<img src="assets/images/picture-svgrepo-com.png">
-					<input type="file" id="FileTransfert" onchange="changeImg()">
+					<div id="divPreviewImage" ><img id="previewImage"  alt="Preview Image" src="" ></div>
+					<img src="assets/images/picture-svgrepo-com.png" id="decoImage">
+					<input type="file" id="FileTransfert" accept="images/jpg images/png 4mo">
 					<label id="labelFile" for="FileTransfert">+ Ajouter photo</label>
 					<span id="spanFile">jpg, png : 4mo max</span>
 				</div>
-				<div id="div-img-aff" class="gallery">
-					<img src id="img-aff">
-				</div>
+				
 				<div class="input-add-div">
 					<label>Titre</label>
 					<input type="text" class="input-add-div-content" id="Titre"></input>
@@ -134,10 +132,10 @@
 				</div>
 				<hr>
 				<div class="modal-add-div">
-					<input type="submit" id="modal-add-input" onclick="sendImg()"></input>
+					<input type="button" id="modal-add-input" value="Envoyer" return ="false"></input>
 					<div id="msg-err-modal">Veuillez remplir tous les champs</div>
 				</div>
-			
+
 			</form>
 		</div>
 	</div>

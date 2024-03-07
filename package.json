@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "events": "^3.3.0"
+    "liveserver": "^0.1.20"
   }
 }

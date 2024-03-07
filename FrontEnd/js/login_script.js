@@ -33,14 +33,12 @@ if (jeton_login) {
   }
 
 }
-
-function logout() {
+loginout.addEventListener("click", function(){
   if (loginout.textContent === "logout") {
     sessionStorage.clear();
     loginout.textContent = "login";
   }
-}
-
+})
 function errMessages() {
   const jet = window.sessionStorage.getItem("token")
   var err = document.getElementById("msg-err")
