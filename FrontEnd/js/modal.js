@@ -91,7 +91,8 @@ function PreviewImage(e) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();
         reader.onload = function (e) {
-            image.src = e.target.result
+            // image.src = e.target.result
+            image.src = input.result
         }
         reader.readAsDataURL(input.files[0])
         image.style.display = "flex"
