@@ -1,5 +1,5 @@
-var editBandeau = document.getElementById("editBnd");
-var editBtn = document.getElementById("openModal");
+let editBandeau = document.getElementById("editBnd");
+let editBtn = document.getElementById("openModal");
 
 const jeton_edition = window.sessionStorage.getItem('token');
 if (jeton_edition) {

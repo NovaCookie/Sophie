@@ -113,13 +113,13 @@
 			<h2>Ajout de photos</h2>
 			<form class="form-add-img" id="formModal">
 				<div class="modal-add-cadre-img">
-					<div id="divPreviewImage" ><img id="previewImage"  alt="Preview Image" src="" ></div>
+					<div id="divPreviewImage"><img id="previewImage" alt="Preview Image" src=""></div>
 					<img src="assets/images/picture-svgrepo-com.png" id="decoImage">
 					<input type="file" id="FileTransfert" accept="images/jpg images/png 4mo">
 					<label id="labelFile" for="FileTransfert">+ Ajouter photo</label>
 					<span id="spanFile">jpg, png : 4mo max</span>
 				</div>
-				
+
 				<div class="input-add-div">
 					<label>Titre</label>
 					<input type="text" class="input-add-div-content" id="Titre"></input>
@@ -132,17 +132,19 @@
 				</div>
 				<hr>
 				<div class="modal-add-div">
-					<input type="button" id="modal-add-input" value="Envoyer" return ="false"></input>
+					<input type="button" id="modal-add-input" value="Envoyer" return="false"></input>
 					<div id="msg-err-modal">Veuillez remplir tous les champs</div>
 				</div>
 
 			</form>
 		</div>
 	</div>
-	<script src="/FrontEnd/js/modal.js"></script>
-	<script src="/FrontEnd/js/gallery.js"></script>
-	<script src="/FrontEnd/js/login_script.js"></script>
-	<script src="/FrontEnd/js/editionIndex.js"></script>
+	<script type="module" src="/js/gallery.js"></script>
+	<script type="module" src="/js/modal.js"></script>
+	<script src="/js/connexion.js"></script>
+	<script src="/js/logger.js"></script>
+
+
 </body>
 
 </html>

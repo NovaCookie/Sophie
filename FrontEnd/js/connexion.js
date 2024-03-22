@@ -1,17 +1,20 @@
 // localStorage.clear();
-var loginout = document.querySelector(".Page-login");
+let loginout = document.querySelector(".Page-login");
 
-
-async function login(email, password) {
-  var email = document.getElementById("email").value
-  var password = document.getElementById("password").value
+//Connexion
+const submit = document.getElementById("connexion");
+submit.addEventListener("click", login);
+async function login(e) {
+  e.preventDefault();
+  let em = document.getElementById("email").value
+  let pwd = document.getElementById("password").value
   await fetch('http://localhost:5678/api/users/login', {
     method: 'POST',
     // mode: 'no-cors',*
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      email: email,
-      password: password,
+      email: em,
+      password: pwd,
     }),
   }).then(async data => {
     if (data.ok) {
@@ -22,6 +25,7 @@ async function login(email, password) {
     }
   })
   errMessages();
+ 
 };
 
 const jeton_login = window.sessionStorage.getItem('token');
@@ -33,22 +37,23 @@ if (jeton_login) {
   }
 
 }
-loginout.addEventListener("click", function(){
+loginout.addEventListener("click", function () {
   if (loginout.textContent === "logout") {
     sessionStorage.clear();
     loginout.textContent = "login";
   }
 })
+
 function errMessages() {
   const jet = window.sessionStorage.getItem("token")
-  var err = document.getElementById("msg-err")
+  let err = document.getElementById("msg-err")
   if (jet) {
     console.log(jet)
     err.style.display = "none"
     err.textContent = ""
   } else {
-    var id = document.getElementById("email").textContent.length
-    var pass = document.getElementById("password").textContent.length
+    let id = document.getElementById("email").textContent.length
+    let pass = document.getElementById("password").textContent.length
     if (id == 0 || pass == 0) {
       err.style.display = "block"
       err.textContent = "Erreur dans l’identifiant ou le mot de passe"

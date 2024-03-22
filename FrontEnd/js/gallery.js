@@ -1,3 +1,5 @@
+import { getImg } from "./impoFetch.js";
+
 const btn0 = document.getElementById("0");
 const btn1 = document.getElementById("1");
 const btn2 = document.getElementById("2");
@@ -8,24 +10,18 @@ btn1.addEventListener("click", () => lesFiltres("Objets", btn1));
 btn2.addEventListener("click", () => lesFiltres("Appartements", btn2));
 btn3.addEventListener("click", () => lesFiltres("Hotels & restaurants", btn3));
 
-
 //Appel des images et ajout dans l'index
-f()
-function f (){
-  fetch('http://localhost:5678/api/works', {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then(r => r.json())
+gallery()
+export async function gallery() {
+  delElement()
+  await getImg()
     .then(data => {
       data.map(image => {
         addElement(image.imageUrl, image.title);
       })
     })
-  
 }
- 
+
 //Appelle des images et conserve uniquement les images avec la gateg demandé puis pour chaque images appelle addElement
 async function lesFiltres(filtre, btn) {
   if (btn.classList != "isSelected") {
@@ -41,7 +37,6 @@ async function lesFiltres(filtre, btn) {
         .filter(image => image.category.name == filtre))
         .map(image => addElement(image.imageUrl, image.title))
       )
-    return false;
   }
 }
 
@@ -50,7 +45,7 @@ function addElement(url, name) {
 
   const gallery_id = document.getElementById("gallery_id")
   const figure = document.createElement("figure")
-  var img = document.createElement("img");
+  let img = document.createElement("img");
   img.src = url;
   const figcaption = document.createElement("figcaption");
 
@@ -64,7 +59,7 @@ function addElement(url, name) {
 //Suppression de toutes les enfants de la balise contenant toutes les images
 function delElement() {
 
-  var parent = document.getElementById('gallery_id');
+  let parent = document.getElementById('gallery_id');
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild)
   }
