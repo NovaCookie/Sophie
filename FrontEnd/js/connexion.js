@@ -1,62 +1,50 @@
-// localStorage.clear();
-let loginout = document.querySelector(".Page-login");
-
 //Connexion
-const submit = document.getElementById("connexion");
-submit.addEventListener("click", login);
-async function login(e) {
+const btnCo = document.getElementById("connexion");
+btnCo.addEventListener("click", login);
+
+function login(e) {
   e.preventDefault();
-  let em = document.getElementById("email").value
-  let pwd = document.getElementById("password").value
-  await fetch('http://localhost:5678/api/users/login', {
-    method: 'POST',
-    // mode: 'no-cors',*
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: em,
-      password: pwd,
-    }),
-  }).then(async data => {
-    if (data.ok) {
-      await data.json().then(response => {
-        sessionStorage.setItem("token", response.token);
-        window.location.href = "index.html"
+  let em = document.getElementById("email");
+  let pwd = document.getElementById("password");
+  if (isCompleted(em, pwd)) {
+    fetch('http://localhost:5678/api/users/login', {
+      method: 'POST',
+      // mode: 'no-cors',*
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: em.value,
+        password: pwd.value,
+      }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.status)
+        }
+        else {
+          response.json().then(data => {
+            sessionStorage.setItem("token", data.token);
+            window.location.href = "index.html"
+          })
+        }
       })
-    }
-  })
-  errMessages();
- 
+      .catch(e => {
+        if (e.message == 401) {
+          errMessages("Erreur dans l’identifiant ou le mot de passe");
+        }
+      });
+  }
 };
 
-const jeton_login = window.sessionStorage.getItem('token');
-if (jeton_login) {
-  if (loginout.textContent === "login") {
-    loginout.textContent = "logout";
+function isCompleted(mail, pass) {
+  if (mail.value.length == 0 || pass.value.length == 0) {
+    errMessages("Veuillez compléter tous les champs");
+    return false;
   } else {
-    loginout.textContent = "login";
+    return true;
   }
-
 }
-loginout.addEventListener("click", function () {
-  if (loginout.textContent === "logout") {
-    sessionStorage.clear();
-    loginout.textContent = "login";
-  }
-})
 
-function errMessages() {
-  const jet = window.sessionStorage.getItem("token")
-  let err = document.getElementById("msg-err")
-  if (jet) {
-    console.log(jet)
-    err.style.display = "none"
-    err.textContent = ""
-  } else {
-    let id = document.getElementById("email").textContent.length
-    let pass = document.getElementById("password").textContent.length
-    if (id == 0 || pass == 0) {
-      err.style.display = "block"
-      err.textContent = "Erreur dans l’identifiant ou le mot de passe"
-    }
-  }
+function errMessages(mess) {
+  const err = document.getElementById("msg-err")
+  err.textContent = mess;
 }

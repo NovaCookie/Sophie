@@ -1,53 +1,75 @@
-import { getImg } from "./impoFetch.js";
+import { getImg, getCateg } from "./impoFetch.js";
+const parent = document.getElementById("filtre_id")
+filtres();
+async function filtres() {
+  createBtn("Tous", 0);
+  await getCateg()
+    .then(data => {
+      data.map(categ => createBtn(categ.name, categ.id))
+    })
+}
+function createBtn(name, id) {
+  const btn = document.createElement("button");
+  parent.insertAdjacentElement("beforeend", btn)
+  btn.insertAdjacentText("afterbegin", name);
+  if(id == 0){
+    selectBtn(btn)
+  }
+  btn.addEventListener("click", () => {
+    selectBtn(btn);
+    lesFiltres(id);
+  })
+}
 
-const btn0 = document.getElementById("0");
-const btn1 = document.getElementById("1");
-const btn2 = document.getElementById("2");
-const btn3 = document.getElementById("3");
+function selectBtn(btn) {
 
-btn0.addEventListener("click", () => lesFiltres("", btn0));
-btn1.addEventListener("click", () => lesFiltres("Objets", btn1));
-btn2.addEventListener("click", () => lesFiltres("Appartements", btn2));
-btn3.addEventListener("click", () => lesFiltres("Hotels & restaurants", btn3));
-
+  const tableauChild = parent.childNodes;
+  // console.log(tableauChild)
+  tableauChild.forEach(btn => {
+    if (btn.classList == "isSelected") {
+      btn.classList.remove('isSelected')
+    }
+  })
+  btn.classList.add('isSelected');
+}
 //Appel des images et ajout dans l'index
 gallery()
 export async function gallery() {
   delElement()
   await getImg()
     .then(data => {
-      data.map(image => {
-        addElement(image.imageUrl, image.title);
-      })
+      data.map(image =>
+        addElement(image.imageUrl, image.title, image.id)
+      )
     })
 }
 
 //Appelle des images et conserve uniquement les images avec la gateg demandé puis pour chaque images appelle addElement
-async function lesFiltres(filtre, btn) {
-  if (btn.classList != "isSelected") {
-    const idAll = [btn0, btn1, btn2, btn3];
-    idAll.forEach((e) => {
-      e.classList.remove('isSelected')
-    });
-    delElement();
-    btn.classList.add('isSelected');
-    fetch('http://localhost:5678/api/works')
-      .then(dataFetch => dataFetch.json())
-      .then(dataList => (filtre == "" ? dataList : dataList
-        .filter(image => image.category.name == filtre))
-        .map(image => addElement(image.imageUrl, image.title))
-      )
-  }
+async function lesFiltres(id) {
+  // console.log(id)
+  delElement();
+  fetch('http://localhost:5678/api/works')
+    .then(dataFetch => dataFetch.json())
+    .then(imgList => {
+      if (id == 0) {
+        return imgList.map(image => addElement(image.imageUrl, image.title, image.id))
+      } else {
+        return imgList.filter(image => image.category.id == id).map(image => addElement(image.imageUrl, image.title, image.id))
+      }
+    })
 }
 
-//Création dynamique de balise et insère les images dedans
-function addElement(url, name) {
 
-  const gallery_id = document.getElementById("gallery_id")
-  const figure = document.createElement("figure")
+//Création dynamique de balise et insère les images dedans
+export function addElement(url, name, id) {
+
+  const gallery_id = document.getElementById("gallery_id");
+  const figure = document.createElement("figure"); 
+  figure.id = `gallery_${id}`;
   let img = document.createElement("img");
   img.src = url;
   const figcaption = document.createElement("figcaption");
+ 
 
   gallery_id.insertAdjacentElement("beforeend", figure);
   figure.insertBefore(img, null);

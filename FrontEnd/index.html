@@ -27,7 +27,7 @@
 			<ul>
 				<li><a href="index.html" class="nav-bar">projets</a></li>
 				<li><a href="#contact" class="nav-bar">contact</a></li>
-				<li><a href="login.html" class="Page-login">login</a></li>
+				<li><a href="login.html" class="Page-login" id="loginId">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -55,19 +55,7 @@
 					<i class="fa-regular fa-pen-to-square"></i>modifier
 				</span>
 			</div>
-			<div class="filtre">
-				<div id="0" class="isSelected">
-					<p>Tous</p>
-				</div>
-				<div id="1" class="">
-					<p>Objet</p>
-				</div>
-				<div id="2" class="">
-					<p>Appartements</p>
-				</div>
-				<div id="3" class="">
-					<p>Hotels & restaurants</p>
-				</div>
+			<div class="filtre" id="filtre_id">
 			</div>
 			<div id="gallery_id" class="gallery">
 			</div>
@@ -133,7 +121,7 @@
 				<hr>
 				<div class="modal-add-div">
 					<input type="button" id="modal-add-input" value="Envoyer" return="false"></input>
-					<div id="msg-err-modal">Veuillez remplir tous les champs</div>
+					<div id="msg-err-modal"></div>
 				</div>
 
 			</form>
@@ -141,10 +129,9 @@
 	</div>
 	<script type="module" src="/js/gallery.js"></script>
 	<script type="module" src="/js/modal.js"></script>
-	<script src="/js/connexion.js"></script>
+	<!-- <script src="/js/connexion.js"></script> -->
 	<script src="/js/logger.js"></script>
-
-
+	<script src="/js/index.js"></script>
 </body>
 
 </html>

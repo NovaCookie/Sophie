@@ -1,4 +1,4 @@
-import { gallery } from "./gallery.js";
+import { addElement } from "./gallery.js";
 import { getImg } from "./impoFetch.js";
 
 const modal = document.getElementById("myModal_del");
@@ -9,7 +9,6 @@ const retour = document.getElementById("arrow_left")
 const fermer1 = document.getElementById("closeOne");
 const fermer2 = document.getElementById("closeTwo");
 const modal_gallery = document.getElementById("modal-gallery");
-const img = document.getElementById("img-aff");
 const titre = document.getElementById("Titre");
 const categ = document.getElementById("Catégorie");
 const fileTransfert = document.getElementById("FileTransfert");
@@ -37,8 +36,8 @@ function addElementmodal(url, id) {
     const spanModal = document.createElement("span");
     const iModal = document.createElement("i");
     iModal.className = "fa-solid fa-trash-can";
-    iModal.id = id
-    iModal.addEventListener("click", delImage)
+    figureModal.id = `modal_${id}`;
+    iModal.addEventListener("click", () => delImage(id));
     var imgModal = document.createElement("img");
     imgModal.src = url;
 
@@ -49,43 +48,38 @@ function addElementmodal(url, id) {
     divModal.insertAdjacentElement("afterend", imgModal);
 }
 
-openModal.onclick = function () {
+openModal.addEventListener("click", function () {
     modal.style.display = "block";
-}
+})
 
-btnAdd.onclick = function () {
+btnAdd.addEventListener("click", function () {
     modal.style.display = "none";
     modal2.style.display = "block";
-    labelFile.style.visibility = "visible"
-    image.setAttribute("src", "")
+    resetFormAddImg();
+})
 
-}
-
-retour.onclick = function () {
+retour.addEventListener("click", function () {
     modal.style.display = "block";
     modal2.style.display = "none";
-    image.removeAttribute('src')
-    image.style.display = "none"
-}
 
-fermer1.onclick = function () {
+})
+
+fermer1.addEventListener("click", function () {
     modal.style.display = "none";
 
-}
+})
 
-fermer2.onclick = function () {
+fermer2.addEventListener("click", function () {
     modal2.style.display = "none";
-    image.removeAttribute('src')
-    image.style.display = "none"
-}
+})
 
 //ferme la modal en cliquant en dehors de celle-ci
-window.onclick = function (event) {
+window.addEventListener("click", function (event) {
     if (event.target == modal || event.target == modal2) {
         modal.style.display = "none";
         modal2.style.display = "none";
     }
-}
+})
 
 //Affiche l'image sélectionner
 fileTransfert.addEventListener("change", PreviewImage);
@@ -106,10 +100,7 @@ function PreviewImage(e) {
 }
 
 
-async function delImage(e) {
-  
-    var id = e.currentTarget.getAttribute("id")
-    console.log(id)
+async function delImage(id) {
     const jeton_modal = window.sessionStorage.getItem('token');
     if (jeton_modal) {
         await fetch(url + "api/works/" + id, {
@@ -119,7 +110,8 @@ async function delImage(e) {
                 "Authorization": 'Basic ' + jeton_modal,
             },
         });
-        refresh();
+        document.getElementById(`modal_${id}`).remove()
+        document.getElementById(`gallery_${id}`).remove();
     }
 
 }
@@ -128,40 +120,50 @@ async function delImage(e) {
 btnAddImg.addEventListener("click", sendImg);
 async function sendImg(e) {
     e.preventDefault()
-    let titre_send = titre.value
-    let categ_send = categ.value
+    const file = fileTransfert.files[0]
+    let title = titre.value
+    let cat = categ.value
 
-
-    if (fileTransfert.files[0] === undefined || titre_send.length == 0) {
-        mess.style.display = "flex"
-    }
-    else {
+    if (file !== undefined && title.length !== 0) {
         const body = new FormData();
-        body.set("image", fileTransfert.files[0]);
-        body.set("title", titre_send);
-        body.set("category", categ_send);
+        body.set("image", file);
+        body.set("title", title);
+        body.set("category", cat);
         console.log(body)
         const jeton_modal = window.sessionStorage.getItem('token');
 
-        await fetch(url + "api/works/", {
+        const newImg = await fetch(url + "api/works/", {
             method: 'POST',
             headers: {
                 "Authorization": 'Basic ' + jeton_modal,
             },
             body,
 
-        })
-        refresh();
+        }).then(res => res.json())
+        console.log(newImg);
+        addElement(newImg.imageUrl, newImg.title, newImg.id)
+        resetFormAddImg();
+        refreshGalleryModal();
+    } else {
+        errMessages("Veuillez compléter tous les champs");
+
     }
 }
-
-function refresh() {
-    var parent = document.getElementById('modal-gallery');
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild)
+function refreshGalleryModal() {
+    while (modal_gallery.firstChild) {
+        modal_gallery.removeChild(modal_gallery.firstChild)
     }
     galleryModal();
-    gallery();
 }
 
+function resetFormAddImg() {
+    document.getElementById("formModal").reset();
+    image.removeAttribute('src')
+    image.style.display = "none"
+    labelFile.style.visibility = "visible"
+    mess.textContent = "";
+}
 
+function errMessages(message) {
+    mess.textContent = message;
+}
