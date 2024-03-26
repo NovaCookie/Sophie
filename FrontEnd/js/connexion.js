@@ -1,9 +1,7 @@
 import { postConnexion } from "./impoFetchApi.js";
 
 //Connexion
-const btnCo = document.getElementById("connexion");
-btnCo.addEventListener("click", login);
-
+document.getElementById("connexion").addEventListener("click", login);
 function login(e) {
   e.preventDefault();
   let em = document.getElementById("email").value;
@@ -11,13 +9,13 @@ function login(e) {
   if (isCompleted(em, pwd)) {
     postConnexion(em, pwd).then(response => {
       if (!response.ok) {
-        throw new Error(response.status)
+        throw new Error(response.status);
       }
       else {
         response.json().then(data => {
           sessionStorage.setItem("token", data.token);
-          window.location.href = "index.html"
-        })
+          window.location.href = "index.html";
+        });
       }
     })
       .catch(e => {
@@ -38,6 +36,6 @@ function isCompleted(mail, pass) {
 }
 
 function errMessages(mess) {
-  const err = document.getElementById("errMsgLogin")
+  const err = document.getElementById("errMsgLogin");
   err.textContent = mess;
 }

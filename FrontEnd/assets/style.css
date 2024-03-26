@@ -481,40 +481,49 @@ footer nav ul {
 }
 
 #modal-gallery {
-	width: 50%;
-	align-items: center;
+	max-width: fit-content;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-column-gap: 10px;
 	grid-row-gap: 10px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: auto;
 
 	div {
 		position: relative;
 	}
 
-	img {
-		width: 76.86px;
-		height: 102.57px;
-		top: 796px;
-		left: 510px;
-	}
+	figure {
+		width: fit-content;
+		img {
+			/* width: 76.86px; */
+			height: 102.57px;
+		}
 
-	span {
-		position: absolute;
-		text-align: right;
-		top: 2px;
-		right: 12px;
-	}
+		span {
+			position: absolute;
+			text-align: right;
+			width: 100%;
 
-	i {
-		color: white;
-		background-color: black;
-		padding: 2px;
-		margin: 2px;
-		border-radius: 2px;
-		cursor: pointer;
+			i {
+				color: white;
+				background-color: black;
+				padding: 2px;
+				margin: 3px;
+				border-radius: 2px;
+				cursor: pointer;
+			}
+		}
+	}
+	@media (min-width:300px){
+		grid-template-columns: 1fr;
+	}
+	@media (min-width: 400px){
+		grid-template-columns: 1fr 1fr ;
+	}
+	@media (min-width: 600px){
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+	@media (min-width: 900px){
+		grid-template-columns: 1fr 1fr 1fr 1fr;
 	}
 }
 

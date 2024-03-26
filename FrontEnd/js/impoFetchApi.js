@@ -7,7 +7,6 @@ export const apiUsers = 'api/users/login';
 
 //Connexion
 export function postConnexion(email, password) {
-    console.log(email,password)
     return fetch(urlLocalApi + apiUsers, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -15,21 +14,21 @@ export function postConnexion(email, password) {
             email: email,
             password: password
         }),
-    })
+    });
 }
 //Appel Categ/Filtre
 export function getCateg() {
     return fetch(urlLocalApi + apiCateg, {
         method: 'GET',
         headers: { "Content-Type": "application/json" },
-    }).then(response => response.json())
+    }).then(response => response.json());
 }
 //Appel des images et ajout dans l'index
 export function getImg() {
     return fetch(urlLocalApi + apiWorks, {
         method: 'GET',
         headers: { "Content-Type": "application/json" },
-    }).then(response => response.json())
+    }).then(response => response.json());
 }
 
 //Envoie d'img
@@ -41,4 +40,14 @@ export function postImg(tk, bd) {
         },
         body: bd,
     }).then(response => response.json());
+}
+
+export function deleteImg(tk, id) {
+    return fetch(urlLocalApi + apiWorks + id, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": 'Basic ' + tk,
+        },
+    });
 }
