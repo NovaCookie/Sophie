@@ -17,10 +17,10 @@
     <header>
         <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
         <nav>
-            <ul>
-                <li><a href="index.html" class="nav-bar">projets</a></li>
-                <li><a href="index.html#contact" class="nav-bar">contact</a></li>
-				<li><a class="Page-login">login</a></li>
+            <ul class="nav-bar">
+                <li><a href="index.html">projets</a></li>
+                <li><a href="index.html#contact">contact</a></li>
+                <li>login</li>
                 <li><a href="../FrontEnd/index.html"><img src="./assets/icons/instagram.png" alt="Instagram"></a></li>
             </ul>
         </nav>
@@ -36,8 +36,8 @@
                 <button id="connexion">Se connecter</button>
             </form>
             <ul>
-                <li id="msg-err"></li>
-                <li style="text-decoration: underline;">Mot de passe oublié ?</li>
+                <li class="msg-err" id="errMsgLogin"></li>
+                <li class="forgot-pwd" style="text-decoration: underline;">Mot de passe oublié ?</li>
             </ul>
         </section>
     </main>
@@ -48,7 +48,7 @@
             </ul>
         </nav>
     </footer>
-    <script src="./js/connexion.js"></script>
+    <script type="module" src="./js/connexion.js"></script>
 
 </body>
 

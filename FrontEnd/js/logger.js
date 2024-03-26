@@ -9,3 +9,4 @@ if (jeton_edition) {
   editBandeau.style.display = "none";
   editBtn.style.display = "none";
 }
+

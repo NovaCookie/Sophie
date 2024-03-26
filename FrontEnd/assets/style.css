@@ -349,23 +349,19 @@ footer nav ul {
 }
 
 .nav-bar {
-	text-decoration: none;
-	color: black;
+
+	li,
+	a {
+		text-decoration: none;
+		color: black;
+		cursor: pointer;
+	}
+
+	a:hover {
+		color: #B1663C;
+	}
 }
 
-.nav-bar:hover {
-	color: #B1663C;
-}
-
-.Page-login {
-	text-decoration: none;
-	color: black;
-	cursor: pointer;
-}
-
-.Page-login:hover {
-	color: #B1663C;
-}
 
 
 #login {
@@ -409,12 +405,17 @@ footer nav ul {
 	}
 }
 
-#msg-err {
+.errMsg {
 	display: block;
-	margin-bottom: 20px;
-	margin-top: 0%;
 	color: red;
+	width: auto;
+	margin: auto;
 }
+
+.forgot-pwd {
+	margin: 2% auto;
+}
+
 
 .editBandeau {
 	display: none;
@@ -544,22 +545,22 @@ footer nav ul {
 	cursor: pointer;
 }
 
-.modal-add-div {
+.submitImgDiv {
 	display: flex;
 	flex-direction: column;
-}
 
-#modal-add-input {
-	font-size: 14px;
-	font-weight: 400;
-	margin: 3% auto;
-	padding: 15px;
-	border-radius: 30px;
-	cursor: pointer;
-	border: none;
-	width: 45%;
-	background-color: #1D6154;
-	color: white;
+	#submitImg {
+		font-size: 14px;
+		font-weight: 400;
+		margin: 3% auto;
+		padding: 15px;
+		border-radius: 30px;
+		cursor: pointer;
+		border: none;
+		width: 45%;
+		background-color: #1D6154;
+		color: white;
+	}
 }
 
 .arrow {
@@ -607,7 +608,7 @@ footer nav ul {
 }
 
 
-#FileTransfert {
+#fileTransfert {
 	display: none;
 	position: absolute;
 }
@@ -651,12 +652,4 @@ footer nav ul {
 	margin-left: auto;
 	margin-right: auto;
 
-}
-
-
-#msg-err-modal {
-	display: block;
-	width: auto;
-	margin: auto;
-	color: red;
 }

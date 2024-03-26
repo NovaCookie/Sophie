@@ -1,32 +1,25 @@
+import { postConnexion } from "./impoFetchApi.js";
+
 //Connexion
 const btnCo = document.getElementById("connexion");
 btnCo.addEventListener("click", login);
 
 function login(e) {
   e.preventDefault();
-  let em = document.getElementById("email");
-  let pwd = document.getElementById("password");
+  let em = document.getElementById("email").value;
+  let pwd = document.getElementById("password").value;
   if (isCompleted(em, pwd)) {
-    fetch('http://localhost:5678/api/users/login', {
-      method: 'POST',
-      // mode: 'no-cors',*
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: em.value,
-        password: pwd.value,
-      }),
+    postConnexion(em, pwd).then(response => {
+      if (!response.ok) {
+        throw new Error(response.status)
+      }
+      else {
+        response.json().then(data => {
+          sessionStorage.setItem("token", data.token);
+          window.location.href = "index.html"
+        })
+      }
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.status)
-        }
-        else {
-          response.json().then(data => {
-            sessionStorage.setItem("token", data.token);
-            window.location.href = "index.html"
-          })
-        }
-      })
       .catch(e => {
         if (e.message == 401) {
           errMessages("Erreur dans l’identifiant ou le mot de passe");
@@ -36,7 +29,7 @@ function login(e) {
 };
 
 function isCompleted(mail, pass) {
-  if (mail.value.length == 0 || pass.value.length == 0) {
+  if (mail.length == 0 || pass.length == 0) {
     errMessages("Veuillez compléter tous les champs");
     return false;
   } else {
@@ -45,6 +38,6 @@ function isCompleted(mail, pass) {
 }
 
 function errMessages(mess) {
-  const err = document.getElementById("msg-err")
+  const err = document.getElementById("errMsgLogin")
   err.textContent = mess;
 }

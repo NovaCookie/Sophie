@@ -1,5 +1,6 @@
-import { getImg, getCateg } from "./impoFetch.js";
+import { getImg, getCateg} from "./impoFetchApi.js";
 const parent = document.getElementById("filtre_id")
+const gallery_id = document.getElementById("gallery_id");
 filtres();
 async function filtres() {
   createBtn("Tous", 0);
@@ -12,7 +13,7 @@ function createBtn(name, id) {
   const btn = document.createElement("button");
   parent.insertAdjacentElement("beforeend", btn)
   btn.insertAdjacentText("afterbegin", name);
-  if(id == 0){
+  if (id == 0) {
     selectBtn(btn)
   }
   btn.addEventListener("click", () => {
@@ -22,9 +23,7 @@ function createBtn(name, id) {
 }
 
 function selectBtn(btn) {
-
   const tableauChild = parent.childNodes;
-  // console.log(tableauChild)
   tableauChild.forEach(btn => {
     if (btn.classList == "isSelected") {
       btn.classList.remove('isSelected')
@@ -46,10 +45,8 @@ export async function gallery() {
 
 //Appelle des images et conserve uniquement les images avec la gateg demandé puis pour chaque images appelle addElement
 async function lesFiltres(id) {
-  // console.log(id)
   delElement();
-  fetch('http://localhost:5678/api/works')
-    .then(dataFetch => dataFetch.json())
+  await getImg()
     .then(imgList => {
       if (id == 0) {
         return imgList.map(image => addElement(image.imageUrl, image.title, image.id))
@@ -63,13 +60,13 @@ async function lesFiltres(id) {
 //Création dynamique de balise et insère les images dedans
 export function addElement(url, name, id) {
 
-  const gallery_id = document.getElementById("gallery_id");
-  const figure = document.createElement("figure"); 
+  
+  const figure = document.createElement("figure");
   figure.id = `gallery_${id}`;
   let img = document.createElement("img");
   img.src = url;
   const figcaption = document.createElement("figcaption");
- 
+
 
   gallery_id.insertAdjacentElement("beforeend", figure);
   figure.insertBefore(img, null);

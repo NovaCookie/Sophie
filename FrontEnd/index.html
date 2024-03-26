@@ -24,10 +24,10 @@
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
-			<ul>
-				<li><a href="index.html" class="nav-bar">projets</a></li>
-				<li><a href="#contact" class="nav-bar">contact</a></li>
-				<li><a href="login.html" class="Page-login" id="loginId">login</a></li>
+			<ul class="nav-bar">
+				<li><a href="index.html">projets</a></li>
+				<li><a href="#contact">contact</a></li>
+				<li><a href="login.html" id="loginId">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -57,7 +57,7 @@
 			</div>
 			<div class="filtre" id="filtre_id">
 			</div>
-			<div id="gallery_id" class="gallery">
+			<div class="gallery" id="gallery_id">
 			</div>
 		</section>
 		<section id="contact">
@@ -83,45 +83,44 @@
 		</nav>
 	</footer>
 	<!-- Début des modales -->
-	<div id="myModal_del" class="modal">
+	<div id="deleteModal" class="modal">
 		<div class="modal-content">
-			<span id="closeOne" class="close">×</span>
+			<span id="closeDeleteModal" class="close">×</span>
 			<h2>Galerie photo</h2>
 			<div id="modal-gallery">
-
 			</div>
 			<hr>
-			<span id="btnAdd" class="modal-add-btn">Ajouter une photo</span>
+			<span id="addBtn" class="modal-add-btn">Ajouter une photo</span>
 		</div>
 	</div>
-	<div id="myModal_add" class="modal">
+	<div id="addImgModal" class="modal">
 		<div class="modal-content">
-			<span id="closeTwo" class="close">×</span>
+			<span id="closeAddImgModal" class="close">×</span>
 			<span id="arrow_left" class="arrow">←</span>
 			<h2>Ajout de photos</h2>
 			<form class="form-add-img" id="formModal">
 				<div class="modal-add-cadre-img">
 					<div id="divPreviewImage"><img id="previewImage" alt="Preview Image" src=""></div>
 					<img src="assets/images/picture-svgrepo-com.png" id="decoImage">
-					<input type="file" id="FileTransfert" accept="images/jpg images/png 4mo">
-					<label id="labelFile" for="FileTransfert">+ Ajouter photo</label>
+					<input type="file" id="fileTransfert" accept="images/jpg images/png 4mo">
+					<label id="labelFile" for="fileTransfert">+ Ajouter photo</label>
 					<span id="spanFile">jpg, png : 4mo max</span>
 				</div>
 
 				<div class="input-add-div">
 					<label>Titre</label>
-					<input type="text" class="input-add-div-content" id="Titre"></input>
+					<input type="text" class="input-add-div-content" id="titre"></input>
 					<label>Catégorie</label>
-					<select class="input-add-div-content" id="Catégorie">
+					<select class="input-add-div-content" id="categorie">
 						<option value="1">Objets</option>
 						<option value="2">Appartements</option>
 						<option value="3">Hotels & restaurants</option>
 					</select>
 				</div>
 				<hr>
-				<div class="modal-add-div">
-					<input type="button" id="modal-add-input" value="Envoyer" return="false"></input>
-					<div id="msg-err-modal"></div>
+				<div class="submitImgDiv">
+					<button id="submitImg">Envoyer</input>
+					<div class="errMsg" id="errMsgModal"></div>
 				</div>
 
 			</form>
@@ -129,7 +128,6 @@
 	</div>
 	<script type="module" src="/js/gallery.js"></script>
 	<script type="module" src="/js/modal.js"></script>
-	<!-- <script src="/js/connexion.js"></script> -->
 	<script src="/js/logger.js"></script>
 	<script src="/js/index.js"></script>
 </body>
