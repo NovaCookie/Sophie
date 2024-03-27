@@ -313,27 +313,20 @@ footer nav ul {
 }
 
 .filtre {
-	width: 50%;
-	align-items: center;
-	text-align: center;
-	display: flex;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
-	margin-left: auto;
-	margin-right: auto;
-
+		display: flex;
+		text-align: center;
+		justify-content: center;
+		margin: auto;
 	button {
-		width: 100%;
-		padding: 10px;
+		padding: 10px 50px;
 		border: 3px solid;
-		border-radius: 20px;
+		border-radius: 60px;
 		border-color: #1D6154;
 		background-color: white;
 		color: #1D6154;
 		font-weight: 700;
 		font-size: 16px;
-		margin-top: 50px;
-		margin-bottom: 30px;
+		margin: 30px 10px 30px;
 		cursor: pointer;
 	}
 
@@ -410,10 +403,15 @@ footer nav ul {
 	color: red;
 	width: auto;
 	margin: auto;
+
+	:hover {
+		color: none;
+	}
 }
 
 .forgot-pwd {
-	margin: 2% auto;
+	margin: auto;
+	margin-bottom: 2%;
 }
 
 
@@ -493,6 +491,7 @@ footer nav ul {
 
 	figure {
 		width: fit-content;
+
 		img {
 			/* width: 76.86px; */
 			height: 102.57px;
@@ -513,16 +512,20 @@ footer nav ul {
 			}
 		}
 	}
-	@media (min-width:300px){
+
+	@media (min-width:300px) {
 		grid-template-columns: 1fr;
 	}
-	@media (min-width: 400px){
-		grid-template-columns: 1fr 1fr ;
+
+	@media (min-width: 400px) {
+		grid-template-columns: 1fr 1fr;
 	}
-	@media (min-width: 600px){
+
+	@media (min-width: 600px) {
 		grid-template-columns: 1fr 1fr 1fr;
 	}
-	@media (min-width: 900px){
+
+	@media (min-width: 900px) {
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 	}
 }

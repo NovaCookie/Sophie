@@ -90,6 +90,7 @@
 			<span id="closeDeleteModal" class="close">×</span>
 			<h2>Galerie photo</h2>
 			<div id="modal-gallery">
+				<!-- Gallerie d'images dans la modal -->
 			</div>
 			<hr>
 			<span id="addBtn" class="modal-add-btn">Ajouter une photo</span>
@@ -101,23 +102,25 @@
 			<span id="arrow_left" class="arrow">←</span>
 			<h2>Ajout de photos</h2>
 			<form class="form-add-img" id="formModal">
-				<div class="modal-add-cadre-img">
+				<div class="modal-add-cadre-img" id="cadreImg">
 					<div id="divPreviewImage"><img id="previewImage" alt="Preview Image" src=""></div>
 					<img src="assets/images/picture-svgrepo-com.png" id="decoImage">
 					<input type="file" id="fileTransfert" accept="images/jpg images/png 4mo">
 					<label id="labelFile" for="fileTransfert">+ Ajouter photo</label>
 					<span id="spanFile">jpg, png : 4mo max</span>
-				</div>
-
-				<div class="input-add-div" id="inputAddModal">
-					<!-- formulaire d'ajout d'image -->
+				</div> 
+				<div class="input-add-div">
+					<label>Titre</label>
+					<input type="text" class="input-add-div-content" id="titre"></input>
+					<label>Catégorie</label>
+					<select class="input-add-div-content" id="categorie">
+					</select>
 				</div>
 				<hr>
 				<div class="submitImgDiv">
-					<button id="submitImg">Envoyer</input>
+					<button id="submitImg">Envoyer</button>
 					<div class="errMsg" id="errMsgModal"></div>
 				</div>
-
 			</form>
 		</div>
 	</div>
