@@ -44,32 +44,15 @@ function addElementDelModal(url, id) {
 addElementAddModal()
 function addElementAddModal() {
     getCateg().then(data => {
-        data.map(categ => option(categ.name, categ.id))
+        data.map(categ => {
+            const selectCateg = document.getElementById("categorie")
+            const optionSelectCateg = document.createElement("option");
+        selectCateg.insertAdjacentElement("beforeend", optionSelectCateg);
+        optionSelectCateg.value = categ.id
+        optionSelectCateg.innerText = categ.name
+    })
     });
-    const inputAddModal = document.getElementById("inputAddModal");
-    const labelTitre = document.createElement("label");
-    labelTitre.innerText = "Titre";
-    inputAddModal.insertAdjacentElement("beforeend", labelTitre);
 
-    const inputTitre = document.createElement("input");
-    inputTitre.type = "text";
-    inputTitre.id = "titre";
-    inputTitre.className = "input-add-div-content";
-    labelTitre.insertAdjacentElement("afterend", inputTitre);
-
-    const labelCateg = document.createElement("label");
-    labelCateg.innerText = "Catégorie";
-    inputTitre.insertAdjacentElement("afterend", labelCateg);
-
-    const selectCateg = document.createElement("select");
-    labelCateg.insertAdjacentElement("afterend", selectCateg);
-    selectCateg.className = "input-add-div-content";
-    function option(name, id) {
-        const optionSelectCateg = document.createElement("option");
-        selectCateg.insertAdjacentElement("afterbegin", optionSelectCateg);
-        optionSelectCateg.id = id
-        optionSelectCateg.innerText = name
-    }
 }
 
 document.getElementById("openModal").addEventListener("click", function () {
