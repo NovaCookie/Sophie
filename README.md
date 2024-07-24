@@ -1,6 +1,6 @@
 # Portfolio-architecte-sophie-bluel
 
-Code du projet 7 de testeur logiciel.
+Code du projet 7 Portfolio de Sophie Bluel(qui est-ce ? Je ne sais pas).
 
 ## Information pour le lancer le code
 
